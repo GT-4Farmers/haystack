@@ -5,7 +5,7 @@ exports.registerController = (req, res) => {
     const email = req.body.email;
 
     // Check users table to see if email is already in use
-    db.query(`SELECT * FROM Users WHERE email = ? LIMIT 1`, [email], (err, data, fields) => {
+    db.query(`SELECT * FROM Users WHERE email = '${email}' LIMIT 1`, [email], (err, data, fields) => {
         if (err) {
             res.json({
                 success: false,

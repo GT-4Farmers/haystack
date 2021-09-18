@@ -3,10 +3,12 @@ import Axios from 'axios'
 import '../App.css';
 
 function Register() {
-    const [firstNameReg, setFirstNameReg] = useState("");
-    const [lastNameReg, setLastNameReg] = useState("");
-    const [emailReg, setEmailReg] = useState("");
-    const [passwordReg, setPasswordReg] = useState("");
+    
+    const [firstNameReg, setFirstNameReg] = useState('');
+    const [lastNameReg, setLastNameReg] = useState('');
+    const [emailReg, setEmailReg] = useState('');
+    const [passwordReg, setPasswordReg] = useState('');
+    const [hidden, setHidden] = useState(true);
 
     const register = () => {
         Axios.post('http://localhost:3001/register', {
@@ -20,7 +22,19 @@ function Register() {
                 alert(response.data.msg);
             }
         })
+        clearForm();
     };
+
+    const clearForm = () => {
+        setFirstNameReg('')
+        setLastNameReg('')
+        setEmailReg('')
+        setPasswordReg('')
+    }
+
+    const toggleShow = () => {
+        setHidden(!hidden)
+    }
 
     return (
         <div className="App">
@@ -30,9 +44,10 @@ function Register() {
                 <input
                     type="text"
                     onChange={(e) => {
-                        setFirstNameReg(e.target.value);
-                        if (!e.target.value) {
+                        if (e.target.value === '') {
                             return;
+                        } else {
+                            setFirstNameReg(e.target.value);
                         }
                     }}
                 />
@@ -40,9 +55,10 @@ function Register() {
                 <input
                     type="text"
                     onChange={(e) => {
-                        setLastNameReg(e.target.value);
-                        if (!e.target.value) {
+                        if (e.target.value === '') {
                             return;
+                        } else {
+                            setLastNameReg(e.target.value);
                         }
                     }}
                 />
@@ -50,22 +66,25 @@ function Register() {
                 <input
                     type="text"
                     onChange={(e) => {
-                        setEmailReg(e.target.value);
-                        if (!e.target.value) {
+                        if (e.target.value === '') {
                             return;
+                        } else {
+                            setEmailReg(e.target.value);
                         }
                     }}
                 />
                 <label>Password</label>
                 <input
-                    type="text"
+                    type={hidden ? "password" : "text"}
                     onChange={(e) => {
-                        setPasswordReg(e.target.value);
-                        if (!e.target.value) {
+                        if (e.target.value === '') {
                             return;
+                        } else {
+                            setPasswordReg(e.target.value);
                         }
                     }}
                 />
+                <button onClick={toggleShow}> Show/Hide </button>
                 <button onClick={register}> Sign Up! </button>
             </div>
         </div>
