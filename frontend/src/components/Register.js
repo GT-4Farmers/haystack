@@ -16,7 +16,10 @@ function Register() {
             password: passwordReg
         }).then((response) => {
             console.log(response);
-        });
+            if (!response.data.success) {
+                alert(response.data.msg);
+            }
+        })
     };
 
     return (
@@ -28,6 +31,9 @@ function Register() {
                     type="text"
                     onChange={(e) => {
                         setFirstNameReg(e.target.value);
+                        if (!e.target.value) {
+                            return;
+                        }
                     }}
                 />
                 <label>Last Name</label>
@@ -35,6 +41,9 @@ function Register() {
                     type="text"
                     onChange={(e) => {
                         setLastNameReg(e.target.value);
+                        if (!e.target.value) {
+                            return;
+                        }
                     }}
                 />
                 <label>Email</label>
@@ -42,6 +51,9 @@ function Register() {
                     type="text"
                     onChange={(e) => {
                         setEmailReg(e.target.value);
+                        if (!e.target.value) {
+                            return;
+                        }
                     }}
                 />
                 <label>Password</label>
@@ -49,6 +61,9 @@ function Register() {
                     type="text"
                     onChange={(e) => {
                         setPasswordReg(e.target.value);
+                        if (!e.target.value) {
+                            return;
+                        }
                     }}
                 />
                 <button onClick={register}> Sign Up! </button>
