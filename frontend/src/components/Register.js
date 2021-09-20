@@ -28,7 +28,7 @@ function Register(props) {
             lastName: state.lastNameReg,
             email: state.emailReg,
             password: state.passwordReg,
-            // confirmPassword: state.confirmPasswordReg
+            confirmPassword: state.confirmPasswordReg
         }).then((response) => {
             console.log(response);
             if (!response.data.success) {
@@ -50,25 +50,18 @@ function Register(props) {
         props.history.push('/login'); 
     }
 
-    // const clearForm = () => {
-    //     setFirstNameReg('')
-    //     setLastNameReg('')
-    //     setEmailReg('')
-    //     setPasswordReg('')
-    // }
-
     const toggleShow = () => {
         setHidden(!hidden)
     }
 
-    // const handleRegister = (e) => {
-    //     e.preventDefault();
-    //     if (state.password === state.confirmPassword) {
-    //         register();
-    //     } else {
-    //         //
-    //     }
-    // }
+    const handleRegister = (e) => {
+        e.preventDefault();
+        if (state.passwordReg === state.confirmPasswordReg) {
+            register();
+        } else {
+            alert("Passwords do not match");
+        }
+    }
     
     const handleChange = (e) => {
         const { id, value } = e.target
@@ -114,16 +107,16 @@ function Register(props) {
                     value={state.passwordReg ? state.passwordReg : ""}
                     onChange={handleChange}
                 />
-                {/* <label>Confirm Password</label>
+                <label>Confirm Password</label>
                 <input
                     type={hidden ? "password" : "text"}
                     placeholder="Confirm Password"
                     id="confirmPasswordReg"
                     value={state.confirmPasswordReg ? state.confirmPasswordReg : ""}
                     onChange={handleChange}
-                /> */}
+                />
                 <button onClick={toggleShow}> Show/Hide </button>
-                <button onClick={register}> Sign Up! </button>
+                <button onClick={handleRegister}> Sign Up! </button>
 
                 <div className="mt-2">
                     <span>Already have an account? </span>
