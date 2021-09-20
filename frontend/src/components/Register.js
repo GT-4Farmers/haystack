@@ -12,10 +12,6 @@ function Register(props) {
         confirmPasswordReg: ""
     })
     
-    // const [firstNameReg, setFirstNameReg] = useState('');
-    // const [lastNameReg, setLastNameReg] = useState('');
-    // const [emailReg, setEmailReg] = useState('');
-    // const [passwordReg, setPasswordReg] = useState('');
     const [hidden, setHidden] = useState(true);
 
     const register = () => {
