@@ -4,12 +4,17 @@ exports.registerController = (req, res) => {
 
     const email = req.body.email;
 
+    console.log(req.body.firstName);
+    console.log(req.body.lastName);
+    console.log(req.body.email);
+    console.log(req.body.password);
+
     // Check users table to see if email is already in use
     db.query(`SELECT * FROM Users WHERE email = '${email}' LIMIT 1`, [email], (err, data, fields) => {
         if (err) {
             res.json({
                 success: false,
-                msg: 'An error occured, please try again.'
+                msg: 'An error occured, please try again.1'
             })
             return;
         }
@@ -32,7 +37,7 @@ exports.registerController = (req, res) => {
                 if (err) {
                     res.json({
                         success: false,
-                        msg: 'An error occured, please try again.'
+                        msg: 'An error occured, please try again.2'
                     })
                     return;
                 } else {
@@ -46,7 +51,7 @@ exports.registerController = (req, res) => {
                         if (err) {
                             res.json({
                                 success: false,
-                                msg: 'An error occured, please try again.'
+                                msg: 'An error occured, please try again.3'
                             })
                             return;
                         } else {

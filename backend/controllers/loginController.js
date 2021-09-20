@@ -5,12 +5,7 @@ exports.loginController = (req, res) => {
     let email = req.body.email;
     let password = req.body.password;
 
-    console.log(email);
-    console.log(password);
-
     email = email.toLowerCase();
-
-    console.log(email);
 
     if (email.length > 45 || password.length > 45) {
         res.json({
@@ -23,7 +18,6 @@ exports.loginController = (req, res) => {
     // Users table
     // select from email
     let cols = [email];
-    console.log(cols)
     db.query('SELECT * FROM Users WHERE email = ? LIMIT 1', cols, (err, data, fields) => {
         if (err) {
             res.json({
