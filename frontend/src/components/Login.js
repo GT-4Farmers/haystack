@@ -1,13 +1,21 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router';
 import Axios from 'axios'
 import '../App.css';
 
 function Login() {
+    const history = useHistory();
+
+    const handleHistory = () => {
+        history.push("/register");
+    }
 
     const [state, setState] = useState({
         email: "",
         password: ""
     })
+    
+    const [hidden, setHidden] = useState(true);
 
     const handleChange = (e) => {
         const { id, value } = e.target
@@ -17,18 +25,11 @@ function Login() {
         }))
     }
 
-    // const [email, setEmail] = useState('');
-    // const [password, setPassword] = useState('');
-    const [hidden, setHidden] = useState(true);
-
     const toggleShow = () => {
         setHidden(!hidden)
     }
-
+    
     const login = () => {
-        console.log(state.email)
-        console.log(state.password)
-
         Axios.post('http://localhost:3001/login', {
             email: state.email,
             password: state.password
@@ -36,9 +37,10 @@ function Login() {
             console.log(response);
             if (!response.data.success) {
                 alert(response.data.msg);
+            } else {
+                history.push("/home");
             }
         })
-        
     };
 
     return (
@@ -61,8 +63,14 @@ function Login() {
                     value={state.password ? state.password : ""}
                     onChange={handleChange}
                 />
+                
                 <button onClick={toggleShow}> Show/Hide </button>
                 <button onClick={login}>Login!</button>
+
+                <div>
+                    <button onClick={handleHistory}>Create New Account</button>
+                </div>
+                
             </div>
         </div>
     )

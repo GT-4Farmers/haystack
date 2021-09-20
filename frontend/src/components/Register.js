@@ -1,8 +1,14 @@
 import React, { useState } from 'react'
 import Axios from 'axios'
 import '../App.css';
+import { useHistory } from 'react-router';
 
 function Register(props) {
+    const history = useHistory();
+    
+    const handleHistory = () => {
+        history.push("/");
+    }
 
     const [state, setState] = useState({
         firstNameReg: "",
@@ -13,7 +19,7 @@ function Register(props) {
     })
     
     const [hidden, setHidden] = useState(true);
-
+    
     const register = () => {
         if (state.firstNameReg === "" ||
             state.lastNameReg === "" ||
@@ -34,8 +40,7 @@ function Register(props) {
             if (!response.data.success) {
                 alert(response.data.msg);
             } else {
-                alert(response.data.msg);
-                // redirectToHome();
+                redirectToHome();
             }
         })
         // clearForm();
@@ -118,13 +123,9 @@ function Register(props) {
                 <button onClick={toggleShow}> Show/Hide </button>
                 <button onClick={handleRegister}> Sign Up! </button>
 
-                <div className="mt-2">
+                <div>
                     <span>Already have an account? </span>
-                    <span 
-                        className="loginText"
-                        onClick={() => redirectToLogin()}>
-                            Login here
-                    </span> 
+                    <button onClick={handleHistory}>Login here</button>
                 </div>
             </div>
             
