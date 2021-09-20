@@ -13,7 +13,7 @@ app.use(cors());
 app.use("/users/", require("./routes/usersRoute"));
 app.use("/profile/", require("./routes/profileRoute"));
 app.use("/register/", require("./routes/registerRoute"));
-app.use("/login/", require("./routes/loginRoute"))
+app.use("/login/", require("./routes/loginRoute"));
 
 const db = mysql.createConnection({
     host: 'haystackdb.cwuhnsyt464r.us-east-1.rds.amazonaws.com',

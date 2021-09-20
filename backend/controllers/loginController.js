@@ -1,10 +1,16 @@
 exports.loginController = (req, res) => {
     const db = require("../server");
+    const bcrypt = require("bcrypt");
 
     let email = req.body.email;
     let password = req.body.password;
 
+    console.log(email);
+    console.log(password);
+
     email = email.toLowerCase();
+
+    console.log(email);
 
     if (email.length > 45 || password.length > 45) {
         res.json({
@@ -17,6 +23,7 @@ exports.loginController = (req, res) => {
     // Users table
     // select from email
     let cols = [email];
+    console.log(cols)
     db.query('SELECT * FROM Users WHERE email = ? LIMIT 1', cols, (err, data, fields) => {
         if (err) {
             res.json({
@@ -30,7 +37,7 @@ exports.loginController = (req, res) => {
         if (data && data.length === 1) {
             bcrypt.compare(password, data[0].password, (bcryptErr, verified) => {
                 if (verified) {
-                    req.session.userID = data[0].email;
+                    // req.session.userID = data[0].email;
 
                     res.json({
                         success:true,
