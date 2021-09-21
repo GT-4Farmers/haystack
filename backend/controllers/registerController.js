@@ -10,7 +10,7 @@ exports.registerController = (req, res) => {
     console.log(req.body.password);
 
     // Check users table to see if email is already in use
-    db.query(`SELECT * FROM Users WHERE email = '${email}' LIMIT 1`, [email], (err, data, fields) => {
+    db.query(`SELECT * FROM Users WHERE email = ? LIMIT 1`, [email], (err, data, fields) => {
         if (err) {
             res.json({
                 success: false,
@@ -37,7 +37,7 @@ exports.registerController = (req, res) => {
                 if (err) {
                     res.json({
                         success: false,
-                        msg: 'An error occured, please try again.2'
+                        msg: 'Please fill out all of the fields'
                     })
                     return;
                 } else {

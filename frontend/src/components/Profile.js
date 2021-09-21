@@ -1,29 +1,35 @@
 import { useState, useEffect } from 'react'
 
 function Profile() {
-    const [email, setEmail] = useState("");
+    const [email, setEmail] = useState("jtest@gmail.com");
     const [bio, setBio] = useState("");
     const [birthdate, setBirthdate] = useState("");
     const [location, setLocation] = useState("");
     const [phone, setPhone] = useState("");
+    
 
     useEffect(() => {
-        fetch("/profile/")
+        fetch("/profile/", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({email: email})
+        })
         .then(res => {
             if(res.ok) {
                 return res.json()
             }
         })
-        .then(jsonRes => { 
+        .then(jsonRes => {
             setEmail(jsonRes.email);
             setBio(jsonRes.bio);
             setBirthdate(jsonRes.birthdate);
             setLocation(jsonRes.location);
             setPhone(jsonRes.phone);
         })
-    })
+    }, []);
 
-    return (<div>
+    return (
+    <div>
         <ul>
             <li>email: {email}</li>
             <li>bio: {bio}</li>

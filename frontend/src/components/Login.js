@@ -12,7 +12,8 @@ function Login() {
 
     const [state, setState] = useState({
         email: "",
-        password: ""
+        password: "",
+        isLoggedIn: false
     })
     
     const [hidden, setHidden] = useState(true);
@@ -34,7 +35,6 @@ function Login() {
             email: state.email,
             password: state.password
         }).then((response) => {
-            console.log(response);
             if (!response.data.success) {
                 alert(response.data.msg);
             } else {

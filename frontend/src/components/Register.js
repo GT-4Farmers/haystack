@@ -11,9 +11,9 @@ function Register(props) {
     }
 
     const [state, setState] = useState({
-        firstNameReg: "",
-        lastNameReg: "",
-        emailReg: "",
+        firstNameReg: null,
+        lastNameReg: null,
+        emailReg: null,
         passwordReg: "",
         confirmPasswordReg: ""
     })
@@ -21,14 +21,6 @@ function Register(props) {
     const [hidden, setHidden] = useState(true);
     
     const register = () => {
-        if (state.firstNameReg === "" ||
-            state.lastNameReg === "" ||
-            state.emailReg === "" ||
-            state.passwordReg === "") {
-                alert("Please fill out all of the required fields.");
-                return;
-        }
-
         Axios.post('http://localhost:3001/register', {
             firstName: state.firstNameReg,
             lastName: state.lastNameReg,

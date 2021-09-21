@@ -1,6 +1,8 @@
 import React from 'react';
 import { withRouter } from "react-router-dom";
 import '../App.css';
+import Axios from 'axios';
+import { useHistory } from 'react-router';
 
 function Header(props) {
     const capitalize = (s) => {
@@ -20,10 +22,34 @@ function Header(props) {
             )
         }
     }
+
+    const history = useHistory();
+
+    // const handleHistory = () => {
+    //     history.push("/register");
+    // }
+
+    // const getCredentials = () => {
+    //     Axios.get('http://localhost:3001/sessions')
+    // }
+
+    const logout = () => {
+        Axios.post('http://localhost:3001/logout', {
+            // userID: props.email
+        })
+        .then((response) => {
+            console.log(response);
+            if (response && response.data.success) {
+                history.push("/home");
+            }
+        })
+    };
+
     function handleLogout() {
-        // localStorage.removeItem(login_access_token)
-        props.history.push('/')
+        logout();
+        props.history.push('/');
     }
+
     return(
         <div className="registration">
             {/* <span>{props.title || title}</span> */}
