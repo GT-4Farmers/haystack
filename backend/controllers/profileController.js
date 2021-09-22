@@ -1,7 +1,7 @@
 exports.profileController = (req, res) => {
     const db = require("../server");
-    console.log(req.body.email);
-    db.query("SELECT * FROM Profiles WHERE email = ?", req.body.email, (err, data) => {
+    // console.log(req.session.userID);
+    db.query("SELECT * FROM Profiles WHERE email = ?", req.session.userID, (err, data) => {
         if (data) {
             res.json({
                 email: data[0].email,

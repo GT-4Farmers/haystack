@@ -1,4 +1,7 @@
 exports.isLoggedInController = (req, res) => {
+    const db = require("../server");
+    // console.log("is logged in: ", req.session.userID);
+
     if (req.session.userID) {
         let cols = [req.session.userID];
         db.query('SELECT * FROM Users WHERE email = ? LIMIT 1', cols, (err, data, fields) => {

@@ -7,19 +7,20 @@ import Home from './components/Home';
 import Login from './components/Login';
 import Register from './components/Register';
 import Header from './components/Header';
+import Axios from 'axios';
 
 
 function App() {
   const [title, updateTitle] = useState(null);
 
-  // useEffect(() => {
-  //   fetch("/isLoggedIn/")
-  //   .then(res => {
-  //     if(res.ok) {
-  //       return res.json()
-  //     }
-  //   })
-  // }, []);
+  Axios.defaults.withCredentials = true;
+
+  useEffect(() => {
+    Axios.get("http://localhost:3001/login")
+    .then((res) => {
+      console.log(res);
+    })
+  }, []);
 
   return (
     <Router>

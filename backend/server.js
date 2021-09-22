@@ -1,9 +1,11 @@
 const express = require("express");
 const app = express();
+
 const mysql = require('mysql');
 const cors = require("cors");
 const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
+const cookieParser = require('cookie-parser');
 
 const db = mysql.createConnection({
     host: 'haystackdb.cwuhnsyt464r.us-east-1.rds.amazonaws.com',
@@ -21,23 +23,28 @@ db.connect(function(err) {
     console.log('Connected to HaystackDB!')
 });
 
-
+app.use(cors({
+    credentials: true,
+    origin: 'http://localhost:3000',
+    methods: ["GET", "POST"]
+}));
+app.use(cookieParser());
 app.use(express.json());
-app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 
 const sessionStore = new MySQLStore({
-    expiration: (1825 * 86400 * 1000),
+    expiration: (60 * 60 * 24 * 60),
     endConnectionOnClose: false
 }, db);
 
 app.use(session({
-    key: '4h873fhqnruiof33n3h743qa',
+    key: 'userCookie',
     secret: '69g968ewr8h2397834h78vhs',
     store: sessionStore,
     resave: false,
     saveUninitialized: false,
     cookie: {
-        maxAge: (1825 * 86400 * 1000),
+        maxAge: (60 * 60 * 24 * 60),
         httpOnly: false
     }
 }));
@@ -46,9 +53,7 @@ app.use("/users/", require("./routes/usersRoute"));
 app.use("/profile/", require("./routes/profileRoute"));
 app.use("/register/", require("./routes/registerRoute"));
 app.use("/login/", require("./routes/loginRoute"));
-app.use("/isLoggedIn", require("./routes/isLoggedInRoute"));
 app.use("/logout/", require("./routes/logoutRoute"));
-// app.use("/sessions/", require("./routes/sessionsRoute"));
 
 app.listen(3001, () => {
     console.log("Backend running on port 3001");

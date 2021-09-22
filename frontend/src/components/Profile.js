@@ -1,32 +1,23 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
+import Axios from 'axios';
 
 function Profile() {
-    const [email, setEmail] = useState("jtest@gmail.com");
+    const [email, setEmail] = useState("");
     const [bio, setBio] = useState("");
     const [birthdate, setBirthdate] = useState("");
     const [location, setLocation] = useState("");
     const [phone, setPhone] = useState("");
-    
 
     useEffect(() => {
-        fetch("/profile/", {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({email: email})
-        })
+        Axios.get("http://localhost:3001/profile")
         .then(res => {
-            if(res.ok) {
-                return res.json()
-            }
+            setEmail(res.data.email)
+            setBio(res.data.bio);
+            setBirthdate(res.data.birthdate);
+            setLocation(res.data.location);
+            setPhone(res.data.phone);
         })
-        .then(jsonRes => {
-            setEmail(jsonRes.email);
-            setBio(jsonRes.bio);
-            setBirthdate(jsonRes.birthdate);
-            setLocation(jsonRes.location);
-            setPhone(jsonRes.phone);
-        })
-    }, []);
+    });
 
     return (
     <div>
