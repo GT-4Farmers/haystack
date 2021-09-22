@@ -30,8 +30,6 @@ function Header(props) {
             // userID: props.email
         })
         .then((response) => {
-            console.log("successfully logged out");
-            console.log(response);
             if (response && response.data.success) {
                 history.push("/");
             }

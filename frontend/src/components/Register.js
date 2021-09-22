@@ -38,8 +38,7 @@ function Register(props) {
     };
 
     const redirectToHome = () => {
-        props.updateTitle('Home')
-        props.history.push('/home');
+        history.push('/');
     }
 
     const toggleShow = () => {
