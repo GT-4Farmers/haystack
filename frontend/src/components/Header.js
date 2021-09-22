@@ -5,14 +5,6 @@ import Axios from 'axios';
 import { useHistory } from 'react-router';
 
 function Header(props) {
-    const capitalize = (s) => {
-        if (typeof s !== 'string') return ''
-        return s.charAt(0).toUpperCase() + s.slice(1)
-    }
-    let title = capitalize(props.location.pathname.substring(1,props.location.pathname.length))
-    // if(props.location.pathname === '/') {
-    //     title = 'Login'
-    // }
     function renderLogout() {
         if(props.location.pathname === '/home'){
             return(

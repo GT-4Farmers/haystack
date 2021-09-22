@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import Profile from './components/Profile';
 import Users from './components/Users';
 import Home from './components/Home';
@@ -11,7 +11,7 @@ import Axios from 'axios';
 
 
 function App() {
-  const [title, updateTitle] = useState(null);
+  // const [title, updateTitle] = useState(null);
 
   Axios.defaults.withCredentials = true;
 
@@ -24,14 +24,14 @@ function App() {
 
   return (
     <Router>
-      <Header title={title}/>
+      <Header/>
       <Switch>
         <Route path="/" exact component={Login} />
         <Route path="/home" component={Home} />
         <Route path="/users" component={Users} />
         <Route path="/profile" component={Profile} />
         <Route path="/register" component={Register}>
-          <Register updateTitle={updateTitle}/>
+          <Register/>
         </Route>
       </Switch>
     </Router>
