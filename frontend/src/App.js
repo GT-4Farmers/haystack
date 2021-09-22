@@ -18,7 +18,7 @@ function App() {
   useEffect(() => {
     Axios.get("http://localhost:3001/login")
     .then((res) => {
-      console.log(res);
+      // console.log(res);
     })
   }, []);
 

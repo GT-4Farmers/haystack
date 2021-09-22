@@ -28,7 +28,6 @@ function Register(props) {
             password: state.passwordReg,
             confirmPassword: state.confirmPasswordReg
         }).then((response) => {
-            console.log(response);
             if (!response.data.success) {
                 alert(response.data.msg);
             } else {
@@ -41,10 +40,6 @@ function Register(props) {
     const redirectToHome = () => {
         props.updateTitle('Home')
         props.history.push('/home');
-    }
-    const redirectToLogin = () => {
-        props.updateTitle('Login')
-        props.history.push('/login'); 
     }
 
     const toggleShow = () => {
