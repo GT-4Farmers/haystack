@@ -26,7 +26,7 @@ db.connect(function(err) {
 app.use(cors({
     credentials: true,
     origin: 'http://localhost:3000',
-    methods: ["GET", "POST"]
+    methods: ["GET", "POST", "PUT"]
 }));
 app.use(cookieParser());
 app.use(express.json());
@@ -49,7 +49,8 @@ app.use(session({
     }
 }));
 
-app.use("/users/", require("./routes/usersRoute"));
+app.use("/profile/editabout/", require("./routes/aboutRoute"));
+app.use("/profile/about/", require("./routes/aboutRoute"));
 app.use("/profile/", require("./routes/profileRoute"));
 app.use("/register/", require("./routes/registerRoute"));
 app.use("/login/", require("./routes/loginRoute"));
