@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import Axios from 'axios';
 import { UserContext } from './UserContext';
 import { useHistory } from 'react-router';
+import '../App.css';
 
 function Profile() {
     const {value, setValue} = useContext(UserContext);
@@ -10,7 +11,7 @@ function Profile() {
     const [email, setEmail] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
-    
+
     useEffect(() => {
         let unmounted = false;
 
@@ -31,19 +32,19 @@ function Profile() {
     }
 
     return (
-    <div>
-        <ul>
-            <h2>{firstName} {lastName}</h2>
-            <div>
-                <button onClick={handleAbout}>About</button>
-            </div>
-            {/* <div>
-                <button onClick={handlePhotos}>Photos</button>
-            </div>
-            <div>
-                <button onClick={handleFriends}>Friends</button>
-            </div> */}
-        </ul>
+    <div className="App">
+        <h1>Profile</h1>
+        <h2>{firstName} {lastName}</h2>
+        
+        <div>
+            <button onClick={handleAbout}>About</button>
+        </div>
+        {/* <div>
+            <button onClick={handlePhotos}>Photos</button>
+        </div>
+        <div>
+            <button onClick={handleFriends}>Friends</button>
+        </div> */}
     </div>
     );
 }
