@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import Axios from 'axios'
 import '../App.css';
 
 function Login() {
-    const history = useHistory();
+    let history = useHistory();
 
     const handleHistory = () => {
         history.push("/register");

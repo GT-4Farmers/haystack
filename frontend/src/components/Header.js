@@ -1,16 +1,31 @@
 import React from 'react';
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import '../App.css';
 import Axios from 'axios';
 import { useHistory } from 'react-router';
 
+
 function Header(props) {
-    function renderLogout() {
-        if(props.location.pathname === '/home'){
+    function renderNav() {
+        if(props.location.pathname === '/home' || props.location.pathname === '/profile'){
             return(
+                <>
+                <div>
+                    <nav>
+                        <ul>
+                            <li>
+                                <Link to='/home'>Home</Link>
+                            </li>
+                            <li>
+                                <Link to='/profile'>Profile</Link>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
                 <div>
                     <button onClick={() => handleLogout()}>Logout</button>
                 </div>
+                </>
             )
         }
     }
@@ -44,8 +59,9 @@ function Header(props) {
     return(
         <div className="registration">
             {/* <span>{props.title || title}</span> */}
+            
 
-            {renderLogout()}
+            {renderNav()}
         </div>
     )
 }
