@@ -1,11 +1,11 @@
 import { useState, useEffect, useContext } from 'react';
 import Axios from 'axios';
-import { UserContext } from './UserContext';
 import { useHistory } from 'react-router';
 import '../App.css';
+import AuthContext from '../states/AuthContext';
 
 function Profile() {
-    const {value, setValue} = useContext(UserContext);
+    const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
     const history = useHistory();
     
     const [email, setEmail] = useState("");
@@ -31,22 +31,30 @@ function Profile() {
         history.push("/profile/about");
     }
 
-    return (
-    <div className="App">
-        <h1>Profile</h1>
-        <h2>{firstName} {lastName}</h2>
-        
-        <div>
-            <button onClick={handleAbout}>About</button>
+    if (isLoggedIn) {
+        return (
+        <div className="App">
+            <h1>Profile</h1>
+            <h2>{firstName} {lastName}</h2>
+            
+            <div>
+                <button onClick={handleAbout}>About</button>
+            </div>
+            {/* <div>
+                <button onClick={handlePhotos}>Photos</button>
+            </div>
+            <div>
+                <button onClick={handleFriends}>Friends</button>
+            </div> */}
         </div>
-        {/* <div>
-            <button onClick={handlePhotos}>Photos</button>
-        </div>
-        <div>
-            <button onClick={handleFriends}>Friends</button>
-        </div> */}
-    </div>
-    );
+        );
+    } else {
+        return (
+            <div className="registration">
+                <button onClick={() => history.push("/")}>Not logged in?</button>
+            </div>
+        )
+    }
 }
 
 export default Profile;

@@ -2,15 +2,17 @@ import React, { useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom';
 import Axios from 'axios'
 import '../App.css';
+import AuthContext from '../states/AuthContext';
 
-function Login() {
+function Login(props) {
 
     let history = useHistory();
 
+    const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+
     const [state, setState] = useState({
         email: "",
-        password: "",
-        isLoggedIn: false
+        password: ""
     })
     
     const [hidden, setHidden] = useState(true);
@@ -35,6 +37,8 @@ function Login() {
             if (!response.data.success) {
                 alert(response.data.msg);
             } else {
+                setIsLoggedIn(true);
+                console.log("successful login");
                 history.push("/home");
             }
         })

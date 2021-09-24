@@ -4,30 +4,42 @@ import { useHistory } from 'react-router';
 
 function About() {
     const history = useHistory();
-    const [email, setEmail] = useState("");
-    const [bio, setBio] = useState("");
-    const [birthdate, setBirthdate] = useState("");
-    const [location, setLocation] = useState("");
-    const [phone, setPhone] = useState("");
 
     const [hiddenString, setHiddenString] = useState('hidden');
     const [hidden, setHidden] = useState(true);
 
+    const [bio, setBio] = useState("");
+
     const [state, setState] = useState({
-        bio: null,
-        birthdate: null,
-        location: null,
-        phone: null
+        email: "",
+        bio: "",
+        birthdate: "",
+        location: "",
+        phone: ""
     })
+
+    const handleChange = (e) => {
+        const { id, value } = e.target
+        setState(prevState => ({
+            ...prevState,
+            [id] : value
+        }))
+    }
 
     useEffect(() => {
         Axios.get("http://localhost:3001/profile/about")
         .then(res => {
-            setEmail(res.data.email)
+            console.log(res.data.email);
+            setState({email: res.data.email});
+            console.log("state.email:", state.email);
+            console.log(res.data.email);
+
             setBio(res.data.bio);
-            setBirthdate(res.data.birthdate);
-            setLocation(res.data.location);
-            setPhone(res.data.phone);
+
+            setState({bio: res.data.bio});
+            setState({birthdate: res.data.birthdate});
+            setState({location: res.data.location});
+            setState({phone: res.data.phone});
         })
     }, []);
 
@@ -58,13 +70,7 @@ function About() {
         })
     };
 
-    const handleChange = (e) => {
-        const { id, value } = e.target
-        setState(prevState => ({
-            ...prevState,
-            [id] : value
-        }))
-    }
+    
 
     const handleBack = () => {
         history.push("/profile");
@@ -102,38 +108,51 @@ function About() {
     return (
     <div className="registration">
         <h1>About</h1>
-        <ul>
-            <li>bio: {hidden ? bio : null}
+        <div>
+            <ul>
+                <li>
+                    email: {state.email}
+                </li>
+                <li>
+                    bio: {state.bio} {bio}
+                </li>
+                <li>
+                    birthdate: {state.birthdate}
+                </li>
+            </ul>
+        </div>
+        {/* <ul>
+            <li>bio: {hidden ? state.bio : null}
                 <input
                     type="text"
                     id="bio"
-                    value={bio ? bio : ""}
+                    value={state.bio ? state.bio : ""}
                     onChange={handleChange}
                 />
-                <button id="bioBtn" type={hiddenString} onClick={editBio}>Save</button>
+                <button id="bioBtn" type="text" onClick={editBio}>Save</button>
             </li>
 
-            <li>birthday: {hidden ? birthdate : null}
+            <li>birthday: {hidden ? state.birthdate : null}
             <input
                     type="text"
                     id="birthdate"
-                    value={birthdate ? birthdate : ""}
+                    value={state.birthdate ? state.birthdate : ""}
                     onChange={handleChange}
                 />
                 <button id="birthdateBtn" onClick={handleChange}>Save</button>
-            </li>
+            </li> */}
             
             {/* <li>location: {location}<input id="location" value={location}/><input type="button" id="location" value="Save" onClick={handleChange}/></li>
             <li>email: {email}</li>
             <li>phone: {phone}</li> */}
-        </ul>
+        {/* </ul>
         <div>
                 <button onClick={handleEdit}>Edit About</button>
         </div>
         <div>
                 <button onClick={handleBack}>Back</button>
         </div>
-        <input type="button" id="toggler" value="Hide/Unhide" onClick={action} />
+        <input type="button" id="toggler" value="Hide/Unhide" onClick={action} /> */}
     </div>);
 }
 
