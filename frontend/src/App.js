@@ -8,8 +8,6 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Header from './components/Header';
 import Axios from 'axios';
-// import { UserContext } from './components/UserContext';
-import EditAbout from './components/EditAbout';
 
 function App() {
   
@@ -36,7 +34,6 @@ function App() {
       <Switch>
         <Route path="/" exact component={Login} />
         <Route path="/home" component={Home} />
-        <Route path="/profile/editabout" component={EditAbout} />
         <Route path="/profile/about" component={About} />
         <Route path="/profile" component={Profile} />
         <Route path="/register" component={Register} />
