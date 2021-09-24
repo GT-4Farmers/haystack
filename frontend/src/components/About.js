@@ -10,15 +10,8 @@ function About() {
     const [location, setLocation] = useState("");
     const [phone, setPhone] = useState("");
 
-    const [hiddenString, setHiddenString] = useState('hidden');
-    const [hidden, setHidden] = useState(true);
-
-    const [state, setState] = useState({
-        bio: null,
-        birthdate: null,
-        location: null,
-        phone: null
-    })
+    const [showElement, setShowText] = useState(false);
+    const onClick = () => setShowText(!showElement);
 
     useEffect(() => {
         Axios.get("http://localhost:3001/profile/about")
@@ -33,7 +26,7 @@ function About() {
 
     const editBio = () => {
         Axios.put('http://localhost:3001/profile/editabout', {
-            bio: state.bio
+            bio: bio
         }).then((response) => {
             if (!response.data.success) {
                 alert(response.data.msg);
@@ -43,12 +36,9 @@ function About() {
         })
     };
 
-    const edit = () => {
+    const editBirthdate = () => {
         Axios.put('http://localhost:3001/profile/editabout', {
-            bio: state.bio,
-            birthdate: state.birthdate,
-            location: state.location,
-            phone: state.phone
+            birthdate: birthdate
         }).then((response) => {
             if (!response.data.success) {
                 alert(response.data.msg);
@@ -58,82 +48,104 @@ function About() {
         })
     };
 
-    const handleChange = (e) => {
-        const { id, value } = e.target
-        setState(prevState => ({
-            ...prevState,
-            [id] : value
-        }))
+    const editLocation = () => {
+        Axios.put('http://localhost:3001/profile/editabout', {
+            location: location
+        }).then((response) => {
+            if (!response.data.success) {
+                alert(response.data.msg);
+            } else {
+                console.log(response.data.success);
+            }
+        })
+    };
+
+    const editPhone = () => {
+        Axios.put('http://localhost:3001/profile/editabout', {
+            phone: phone
+        }).then((response) => {
+            if (!response.data.success) {
+                alert(response.data.msg);
+            } else {
+                console.log(response.data.success);
+            }
+        })
+    };
+
+    const handleBioChange = (e) => {
+        setBio(e.target.value)
+    }
+
+    const handleBirthdateChange = (e) => {
+        setBirthdate(e.target.value)
+    }
+
+    const handleLocationChange = (e) => {
+        setLocation(e.target.value)
+    }
+
+    const handlePhoneChange = (e) => {
+        setPhone(e.target.value)
     }
 
     const handleBack = () => {
         history.push("/profile");
     }
 
-    const handleEdit = () => {
-        // history.push("/profile/editabout");
+    const BioButton = () => <button id="bioBtn" onClick={editBio}>Save</button>;
+    const BirthdayButton = () => <button id="birthdayBtn" onClick={editBirthdate}>Save</button>;
+    const LocationButton = () => <button id="locationBtn" onClick={editLocation}>Save</button>;
+    const PhoneButton = () => <button id="phoneBtn" onClick={editPhone}>Save</button>;
 
-    }
-
-    // const hideUnhide = () => {
-    //     setHidden(!hidden);
-    //     setHiddenString('visible');
-    // }
-
-    const action = () => {
-        setHidden(!hidden);
-        
-        if(hidden) {
-            setHiddenString('hidden');
-            document.getElementById('bio').style.visibility = 'hidden';
-            document.getElementById('bioBtn').style.visibility = 'hidden';
-            document.getElementById('birthdate').style.visibility = 'hidden';
-            document.getElementById('birthdateBtn').style.visibility = 'hidden';
-
-        } else {
-            setHiddenString('visible');
-            document.getElementById('bio').style.visibility = 'visible';
-            document.getElementById('bioBtn').style.visibility = 'visible';
-            document.getElementById('birthdate').style.visibility = 'visible';
-            document.getElementById('birthdateBtn').style.visibility = 'visible';
-        }
-    }
+    let value = !showElement ? "Edit About" : "Done";
 
     return (
     <div className="registration">
         <h1>About</h1>
         <ul>
-            <li>bio: {hidden ? bio : null}
-                <input
+            <li>Bio: {showElement ? null : bio}
+                {showElement ? <input
                     type="text"
                     id="bio"
                     value={bio ? bio : ""}
-                    onChange={handleChange}
-                />
-                <button id="bioBtn" type={hiddenString} onClick={editBio}>Save</button>
+                    onChange={handleBioChange}
+                /> : null}
+                {showElement ? <BioButton /> : null}
             </li>
-
-            <li>birthday: {hidden ? birthdate : null}
-            <input
+            <li>Birthday: {showElement ? null : birthdate}
+                {showElement ? <input
                     type="text"
                     id="birthdate"
                     value={birthdate ? birthdate : ""}
-                    onChange={handleChange}
-                />
-                <button id="birthdateBtn" onClick={handleChange}>Save</button>
+                    onChange={handleBirthdateChange}
+                /> : null}
+                {showElement ? <BirthdayButton /> : null}
             </li>
-            
-            {/* <li>location: {location}<input id="location" value={location}/><input type="button" id="location" value="Save" onClick={handleChange}/></li>
-            <li>email: {email}</li>
-            <li>phone: {phone}</li> */}
+            <li>Location: {showElement ? null : location}
+                {showElement ? <input
+                    type="text"
+                    id="location"
+                    value={location ? location : ""}
+                    onChange={handleLocationChange}
+                /> : null}
+                {showElement ? <LocationButton /> : null}
+            </li>
+            <li>Phone: {showElement ? null : phone}
+                {showElement ? <input
+                    type="text"
+                    id="phone"
+                    value={phone ? phone : ""}
+                    onChange={handlePhoneChange}
+                /> : null}
+                {showElement ? <PhoneButton /> : null}
+            </li>
         </ul>
         <div>
-                <button onClick={handleEdit}>Edit About</button>
+            <button onClick={onClick}>{value}</button>
         </div>
         <div>
                 <button onClick={handleBack}>Back</button>
         </div>
-        <input type="button" id="toggler" value="Hide/Unhide" onClick={action} />
     </div>);
 }
 
