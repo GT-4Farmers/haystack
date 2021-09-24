@@ -1,14 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom';
 import Axios from 'axios'
 import '../App.css';
 
 function Login() {
-    let history = useHistory();
 
-    const handleHistory = () => {
-        history.push("/register");
-    }
+    let history = useHistory();
 
     const [state, setState] = useState({
         email: "",
@@ -17,7 +14,7 @@ function Login() {
     })
     
     const [hidden, setHidden] = useState(true);
-
+    
     const handleChange = (e) => {
         const { id, value } = e.target
         setState(prevState => ({
@@ -25,7 +22,7 @@ function Login() {
             [id] : value
         }))
     }
-
+    
     const toggleShow = () => {
         setHidden(!hidden)
     }
@@ -42,6 +39,10 @@ function Login() {
             }
         })
     };
+    
+    const handleHistory = () => {
+        history.push("/register");
+    }
 
     return (
         <div className = "App">

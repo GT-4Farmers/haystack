@@ -31,6 +31,18 @@ function About() {
         })
     }, []);
 
+    const editBio = () => {
+        Axios.put('http://localhost:3001/profile/editabout', {
+            bio: state.bio
+        }).then((response) => {
+            if (!response.data.success) {
+                alert(response.data.msg);
+            } else {
+                console.log(response.data.success);
+            }
+        })
+    };
+
     const edit = () => {
         Axios.put('http://localhost:3001/profile/editabout', {
             bio: state.bio,
@@ -92,12 +104,22 @@ function About() {
         <h1>About</h1>
         <ul>
             <li>bio: {hidden ? bio : null}
-                <input id="bio" type={hiddenString} value={bio}/>
-                <button id="bioBtn" type={hiddenString} onClick={handleChange}>Save</button>
+                <input
+                    type="text"
+                    id="bio"
+                    value={bio ? bio : ""}
+                    onChange={handleChange}
+                />
+                <button id="bioBtn" type={hiddenString} onClick={editBio}>Save</button>
             </li>
 
             <li>birthday: {hidden ? birthdate : null}
-                <input id="birthdate" value={birthdate}/>
+            <input
+                    type="text"
+                    id="birthdate"
+                    value={birthdate ? birthdate : ""}
+                    onChange={handleChange}
+                />
                 <button id="birthdateBtn" onClick={handleChange}>Save</button>
             </li>
             
