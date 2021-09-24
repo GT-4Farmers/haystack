@@ -144,7 +144,7 @@ function About() {
             <button onClick={onClick}>{value}</button>
         </div>
         <div>
-                <button onClick={handleBack}>Back</button>
+            <button onClick={handleBack}>Back</button>
         </div>
     </div>);
 }
