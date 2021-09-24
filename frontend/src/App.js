@@ -8,12 +8,13 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Header from './components/Header';
 import Axios from 'axios';
-// import { UserContext } from './components/UserContext';
 import EditAbout from './components/EditAbout';
+import AuthContext from './states/AuthContext';
 
 function App() {
   
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState("");
 
   Axios.defaults.withCredentials = true;
   
@@ -23,7 +24,7 @@ function App() {
     Axios.get("http://localhost:3001/login")
     .then((res) => {
         if (!unmounted) {
-            setIsLoggedIn(res.data.success);
+          setIsLoggedIn(res.data.success);
         }
     })
 
@@ -32,15 +33,18 @@ function App() {
 
   return (
     <Router>
-      <Header/>
-      <Switch>
-        <Route path="/" exact component={Login} />
-        <Route path="/home" component={Home} />
-        <Route path="/profile/editabout" component={EditAbout} />
-        <Route path="/profile/about" component={About} />
-        <Route path="/profile" component={Profile} />
-        <Route path="/register" component={Register} />
-      </Switch>
+      <AuthContext.Provider value={{isLoggedIn, setIsLoggedIn, user, setUser}}>
+        <Header />
+        <Switch>
+          <Route exact path="/" component={Login} />
+          {/* <Route path="/home" render={(props) => <Home {...props} isLoggedIn={isLoggedIn} /> }/> */}
+          <Route path="/home" component={Home} />
+          <Route path="/profile/editabout" component={EditAbout} />
+          <Route path="/profile/about" component={About} />
+          <Route path="/profile" component={Profile} />
+          <Route path="/register" component={Register} />
+        </Switch>
+      </AuthContext.Provider>
     </Router>
   )
 
