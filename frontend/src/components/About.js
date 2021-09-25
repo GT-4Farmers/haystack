@@ -25,7 +25,7 @@ function About() {
     }, []);
 
     const editBio = () => {
-        Axios.put('http://localhost:3001/profile/editabout', {
+        Axios.put('http://localhost:3001/profile/about/bio', {
             bio: bio
         }).then((response) => {
             if (!response.data.success) {
@@ -37,7 +37,7 @@ function About() {
     };
 
     const editBirthdate = () => {
-        Axios.put('http://localhost:3001/profile/editabout', {
+        Axios.put('http://localhost:3001/profile/about/birthdate', {
             birthdate: birthdate
         }).then((response) => {
             if (!response.data.success) {
@@ -49,7 +49,7 @@ function About() {
     };
 
     const editLocation = () => {
-        Axios.put('http://localhost:3001/profile/editabout', {
+        Axios.put('http://localhost:3001/profile/about/location', {
             location: location
         }).then((response) => {
             if (!response.data.success) {
@@ -61,7 +61,7 @@ function About() {
     };
 
     const editPhone = () => {
-        Axios.put('http://localhost:3001/profile/editabout', {
+        Axios.put('http://localhost:3001/profile/about/phone', {
             phone: phone
         }).then((response) => {
             if (!response.data.success) {

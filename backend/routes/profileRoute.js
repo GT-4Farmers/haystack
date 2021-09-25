@@ -2,10 +2,16 @@ const express = require("express");
 const router = express.Router();
 profileRoute = require("../controllers/profileController");
 aboutRoute = require("../controllers/getAboutController");
-// editAboutRoute = require("../controllers/editAboutController");
+editBioRoute = require("../controllers/editBioController");
+editBirthdateRoute = require("../controllers/editBirthdateController");
+editLocationRoute = require("../controllers/editLocationController");
+editPhoneRoute = require("../controllers/editPhoneController");
 
-router.get("/", profileRoute.profileController)
+router.put("/about/phone", editPhoneRoute.editPhoneController)
+router.put("/about/location", editLocationRoute.editLocationController)
+router.put("/about/birthdate", editBirthdateRoute.editBirthdateController)
+router.put("/about/bio", editBioRoute.editBioController)
 router.get("/about/", aboutRoute.getAboutController)
-// router.put("/about/", editAboutRoute.editAboutController);
+router.get("/", profileRoute.profileController)
 
 module.exports = router;
