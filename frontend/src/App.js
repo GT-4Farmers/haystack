@@ -8,7 +8,6 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Header from './components/Header';
 import Axios from 'axios';
-import EditAbout from './components/EditAbout';
 import AuthContext from './states/AuthContext';
 
 function App() {
@@ -37,9 +36,7 @@ function App() {
         <Header />
         <Switch>
           <Route exact path="/" component={Login} />
-          {/* <Route path="/home" render={(props) => <Home {...props} isLoggedIn={isLoggedIn} /> }/> */}
           <Route path="/home" component={Home} />
-          <Route path="/profile/editabout" component={EditAbout} />
           <Route path="/profile/about" component={About} />
           <Route path="/profile" component={Profile} />
           <Route path="/register" component={Register} />
