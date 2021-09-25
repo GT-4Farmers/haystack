@@ -4,48 +4,29 @@ import { useHistory } from 'react-router';
 
 function About() {
     const history = useHistory();
-
-    const [hiddenString, setHiddenString] = useState('hidden');
-    const [hidden, setHidden] = useState(true);
-
+    const [email, setEmail] = useState("");
     const [bio, setBio] = useState("");
+    const [birthdate, setBirthdate] = useState("");
+    const [location, setLocation] = useState("");
+    const [phone, setPhone] = useState("");
 
-    const [state, setState] = useState({
-        email: "",
-        bio: "",
-        birthdate: "",
-        location: "",
-        phone: ""
-    })
-
-    const handleChange = (e) => {
-        const { id, value } = e.target
-        setState(prevState => ({
-            ...prevState,
-            [id] : value
-        }))
-    }
+    const [showElement, setShowText] = useState(false);
+    const onClick = () => setShowText(!showElement);
 
     useEffect(() => {
         Axios.get("http://localhost:3001/profile/about")
         .then(res => {
-            console.log(res.data.email);
-            setState({email: res.data.email});
-            console.log("state.email:", state.email);
-            console.log(res.data.email);
-
+            setEmail(res.data.email)
             setBio(res.data.bio);
-
-            setState({bio: res.data.bio});
-            setState({birthdate: res.data.birthdate});
-            setState({location: res.data.location});
-            setState({phone: res.data.phone});
+            setBirthdate(res.data.birthdate);
+            setLocation(res.data.location);
+            setPhone(res.data.phone);
         })
     }, []);
 
     const editBio = () => {
         Axios.put('http://localhost:3001/profile/editabout', {
-            bio: state.bio
+            bio: bio
         }).then((response) => {
             if (!response.data.success) {
                 alert(response.data.msg);
@@ -55,12 +36,9 @@ function About() {
         })
     };
 
-    const edit = () => {
+    const editBirthdate = () => {
         Axios.put('http://localhost:3001/profile/editabout', {
-            bio: state.bio,
-            birthdate: state.birthdate,
-            location: state.location,
-            phone: state.phone
+            birthdate: birthdate
         }).then((response) => {
             if (!response.data.success) {
                 alert(response.data.msg);
@@ -70,89 +48,104 @@ function About() {
         })
     };
 
-    
+    const editLocation = () => {
+        Axios.put('http://localhost:3001/profile/editabout', {
+            location: location
+        }).then((response) => {
+            if (!response.data.success) {
+                alert(response.data.msg);
+            } else {
+                console.log(response.data.success);
+            }
+        })
+    };
+
+    const editPhone = () => {
+        Axios.put('http://localhost:3001/profile/editabout', {
+            phone: phone
+        }).then((response) => {
+            if (!response.data.success) {
+                alert(response.data.msg);
+            } else {
+                console.log(response.data.success);
+            }
+        })
+    };
+
+    const handleBioChange = (e) => {
+        setBio(e.target.value)
+    }
+
+    const handleBirthdateChange = (e) => {
+        setBirthdate(e.target.value)
+    }
+
+    const handleLocationChange = (e) => {
+        setLocation(e.target.value)
+    }
+
+    const handlePhoneChange = (e) => {
+        setPhone(e.target.value)
+    }
 
     const handleBack = () => {
         history.push("/profile");
     }
 
-    const handleEdit = () => {
-        // history.push("/profile/editabout");
+    const BioButton = () => <button id="bioBtn" onClick={editBio}>Save</button>;
+    const BirthdayButton = () => <button id="birthdayBtn" onClick={editBirthdate}>Save</button>;
+    const LocationButton = () => <button id="locationBtn" onClick={editLocation}>Save</button>;
+    const PhoneButton = () => <button id="phoneBtn" onClick={editPhone}>Save</button>;
 
-    }
-
-    // const hideUnhide = () => {
-    //     setHidden(!hidden);
-    //     setHiddenString('visible');
-    // }
-
-    const action = () => {
-        setHidden(!hidden);
-        
-        if(hidden) {
-            setHiddenString('hidden');
-            document.getElementById('bio').style.visibility = 'hidden';
-            document.getElementById('bioBtn').style.visibility = 'hidden';
-            document.getElementById('birthdate').style.visibility = 'hidden';
-            document.getElementById('birthdateBtn').style.visibility = 'hidden';
-
-        } else {
-            setHiddenString('visible');
-            document.getElementById('bio').style.visibility = 'visible';
-            document.getElementById('bioBtn').style.visibility = 'visible';
-            document.getElementById('birthdate').style.visibility = 'visible';
-            document.getElementById('birthdateBtn').style.visibility = 'visible';
-        }
-    }
+    let value = !showElement ? "Edit About" : "Done";
 
     return (
     <div className="registration">
         <h1>About</h1>
-        <div>
-            <ul>
-                <li>
-                    email: {state.email}
-                </li>
-                <li>
-                    bio: {state.bio} {bio}
-                </li>
-                <li>
-                    birthdate: {state.birthdate}
-                </li>
-            </ul>
-        </div>
-        {/* <ul>
-            <li>bio: {hidden ? state.bio : null}
-                <input
+        <ul>
+            <li>Bio: {showElement ? null : bio}
+                {showElement ? <input
                     type="text"
                     id="bio"
-                    value={state.bio ? state.bio : ""}
-                    onChange={handleChange}
-                />
-                <button id="bioBtn" type="text" onClick={editBio}>Save</button>
+                    value={bio ? bio : ""}
+                    onChange={handleBioChange}
+                /> : null}
+                {showElement ? <BioButton /> : null}
             </li>
-
-            <li>birthday: {hidden ? state.birthdate : null}
-            <input
+            <li>Birthday: {showElement ? null : birthdate}
+                {showElement ? <input
                     type="text"
                     id="birthdate"
-                    value={state.birthdate ? state.birthdate : ""}
-                    onChange={handleChange}
-                />
-                <button id="birthdateBtn" onClick={handleChange}>Save</button>
-            </li> */}
-            
-            {/* <li>location: {location}<input id="location" value={location}/><input type="button" id="location" value="Save" onClick={handleChange}/></li>
-            <li>email: {email}</li>
-            <li>phone: {phone}</li> */}
-        {/* </ul>
+                    value={birthdate ? birthdate : ""}
+                    onChange={handleBirthdateChange}
+                /> : null}
+                {showElement ? <BirthdayButton /> : null}
+            </li>
+            <li>Location: {showElement ? null : location}
+                {showElement ? <input
+                    type="text"
+                    id="location"
+                    value={location ? location : ""}
+                    onChange={handleLocationChange}
+                /> : null}
+                {showElement ? <LocationButton /> : null}
+            </li>
+            <li>Phone: {showElement ? null : phone}
+                {showElement ? <input
+                    type="text"
+                    id="phone"
+                    value={phone ? phone : ""}
+                    onChange={handlePhoneChange}
+                /> : null}
+                {showElement ? <PhoneButton /> : null}
+            </li>
+        </ul>
         <div>
-                <button onClick={handleEdit}>Edit About</button>
+            <button onClick={onClick}>{value}</button>
         </div>
         <div>
-                <button onClick={handleBack}>Back</button>
+            <button onClick={handleBack}>Back</button>
         </div>
-        <input type="button" id="toggler" value="Hide/Unhide" onClick={action} /> */}
     </div>);
 }
 
