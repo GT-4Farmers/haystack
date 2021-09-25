@@ -2,8 +2,10 @@ import React, { useEffect, useState, useContext } from 'react';
 import Axios from 'axios';
 import '../App.css';
 import AuthContext from '../states/AuthContext';
+import { useHistory } from 'react-router';
 
-function Home(props) {
+function Home() {
+  let history = useHistory();
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
@@ -22,13 +24,11 @@ function Home(props) {
     return () => { unmounted = true };
   }, []);
 
-  console.log("@home, props.isloggedin:", props.isLoggedIn);
-
   function authView() {
     if (isLoggedIn === false) {
       return (
         <div className="registration">
-          <button onClick={() => props.history.push("/")}>Not logged in?</button>
+          <button onClick={() => history.push("/")}>Not logged in?</button>
         </div>
       )
     } else {

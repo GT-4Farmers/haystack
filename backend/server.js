@@ -38,7 +38,7 @@ const sessionStore = new MySQLStore({
 }, db);
 
 app.use(session({
-    key: 'userCookie',
+    key: 'userCookietv254gt2grwg43w',
     secret: '69g968ewr8h2397834h78vhs',
     store: sessionStore,
     resave: false,
@@ -49,8 +49,6 @@ app.use(session({
     }
 }));
 
-app.use("/profile/editabout/", require("./routes/aboutRoute"));
-app.use("/profile/about/", require("./routes/aboutRoute"));
 app.use("/profile/", require("./routes/profileRoute"));
 app.use("/register/", require("./routes/registerRoute"));
 app.use("/login/", require("./routes/loginRoute"));

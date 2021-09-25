@@ -25,9 +25,10 @@ exports.registerController = (req, res) => {
             const firstName = req.body.firstName;
             const lastName = req.body.lastName;
             const password = bcrypt.hashSync(req.body.password, 9);
+            const uuid = req.body.uuid;
         
-            var sql = `INSERT INTO Users (firstName, lastName, email, password) VALUES (?, ?, ?, ?)`;
-            var cols = [firstName, lastName, email, password];
+            var sql = `INSERT INTO Users (uuid, firstName, lastName, email, password) VALUES (?, ?, ?, ?, ?)`;
+            var cols = [uuid, firstName, lastName, email, password];
             db.query(sql, cols, function (err, data) {
                 if (err) {
                     res.json({
@@ -40,8 +41,8 @@ exports.registerController = (req, res) => {
                     var birthdate = '';
                     var location = '';
                     var phone = ''
-                    var sql = `INSERT INTO Profiles (email, bio, birthdate, location, phone) VALUES (?, ?, ?, ?, ?)`;
-                    var cols = [email, bio, birthdate, location, phone];
+                    var sql = `INSERT INTO Profiles (uuid, email, bio, birthdate, location, phone) VALUES (?, ?, ?, ?, ?, ?)`;
+                    var cols = [uuid, email, bio, birthdate, location, phone];
                     db.query(sql, cols, function (err, data) {
                         if (err) {
                             res.json({

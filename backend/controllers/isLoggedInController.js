@@ -4,7 +4,7 @@ exports.isLoggedInController = (req, res) => {
 
     if (req.session.userID) {
         let cols = [req.session.userID];
-        db.query('SELECT * FROM Users WHERE email = ? LIMIT 1', cols, (err, data, fields) => {
+        db.query('SELECT * FROM Users WHERE uuid = ? LIMIT 1', cols, (err, data, fields) => {
             if (data && data.length === 1) {
                 res.json({
                     success: true,

@@ -2,8 +2,12 @@ import React, { useState } from 'react'
 import Axios from 'axios'
 import '../App.css';
 import { useHistory } from 'react-router';
+import uuid from 'react-uuid';
 
-function Register(props) {
+function Register() {
+
+    let asdf = uuid();
+
     const history = useHistory();
     
     const handleHistory = () => {
@@ -21,7 +25,9 @@ function Register(props) {
     const [hidden, setHidden] = useState(true);
     
     const register = () => {
+        
         Axios.post('http://localhost:3001/register', {
+            uuid: asdf,
             firstName: state.firstNameReg,
             lastName: state.lastNameReg,
             email: state.emailReg,

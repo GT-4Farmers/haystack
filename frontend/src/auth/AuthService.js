@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Redirect, useHistory } from 'react-router';
+import { useHistory } from 'react-router';
 import Axios from 'axios';
 
 function AuthService() {
@@ -21,10 +21,8 @@ function AuthService() {
     });
 
     let history = useHistory();
-    console.log("outside:",isLoggedIn);
 
     if (!isLoggedIn) {
-        // <Redirect to="/" />
         history.push("/");
         return (
             <div>not logged</div>
@@ -34,8 +32,6 @@ function AuthService() {
             <div>logged</div>
         )
     }
-
-    
 }
 
 export default AuthService
