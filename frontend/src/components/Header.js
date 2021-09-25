@@ -10,24 +10,30 @@ function Header(props) {
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
 
   function renderNav() {
-    if ((props.location.pathname === '/home' && isLoggedIn) || (props.location.pathname === '/profile' && isLoggedIn) ) {
+    if ( (!(props.location.pathname === '/' || (props.location.pathname === '/register')) && isLoggedIn) ) {
       return (
         <>
-          <div>
-            <nav>
-              <ul>
-                <li>
-                  <Link to='/home'>Home</Link>
-                </li>
-                <li>
-                  <Link to='/profile'>Profile</Link>
-                </li>
-              </ul>
-            </nav>
-          </div>
-          <div>
-            <button onClick={() => handleLogout()}>Logout</button>
-          </div>
+        <div>
+          <nav>
+            <ul>
+              <li>
+                <Link to='/home'>Home</Link>
+              </li>
+              <li>
+                <Link to='/profile'>Profile</Link>
+              </li>
+              <li>
+                <Link to='/searchUser'>Search User</Link>
+              </li>
+              {/* <li>
+                <Link to='/profile'>Profile</Link>
+              </li> */}
+            </ul>
+          </nav>
+        </div>
+        <div>
+          <button onClick={() => handleLogout()}>Logout</button>
+        </div>
         </>
       )
     }
