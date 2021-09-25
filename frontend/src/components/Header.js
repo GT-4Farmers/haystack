@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { withRouter, Link } from "react-router-dom";
 import '../App.css';
 import Axios from 'axios';
 import { useHistory } from 'react-router';
+import AuthContext from '../states/AuthContext';
 
 function Header(props) {
+
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+
   function renderNav() {
-    if (props.location.pathname === '/home' || props.location.pathname === '/profile') {
+    if ((props.location.pathname === '/home' && isLoggedIn) || (props.location.pathname === '/profile' && isLoggedIn) ) {
       return (
         <>
           <div>
@@ -47,9 +51,6 @@ function Header(props) {
 
   return (
     <div className="registration">
-      {/* <span>{props.title || title}</span> */}
-
-
       {renderNav()}
     </div>
   )
