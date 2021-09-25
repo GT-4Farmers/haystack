@@ -1,13 +1,10 @@
-exports.editAboutController = (req, res) => {
+exports.editLocationController = (req, res) => {
     const db = require("../server");
-    var email = req.session.userID
-    var bio = req.body.bio
-    var birthdate = req.body.birthdate
+    var uuid = req.session.userID
     var location = req.body.location
-    var phone = req.body.phone
 
-    var update_sql = 'UPDATE Profiles SET bio = ?, birthdate = ?, location = ?, phone = ? WHERE email = ?'
-    var update_cols = [bio, birthdate, location, phone, email]
+    var update_sql = 'UPDATE Profiles SET location = ? WHERE uuid = ?'
+    var update_cols = [location, uuid]
     db.query(update_sql, update_cols, (err) => {
         if (err) {
             res.json({
