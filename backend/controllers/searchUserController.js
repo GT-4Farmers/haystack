@@ -4,16 +4,18 @@ exports.searchUserController = (req, res) => {
     let userToSearch = (req.body.userToSearch === "" ? "" : '%' + req.body.userToSearch + '%');
     // console.log("userToSearch:",userToSearch);
 
-    db.query('SELECT * FROM `Users` WHERE (LOWER(`firstName`) LIKE LOWER(?)) OR (LOWER(`lastName`) LIKE LOWER(?))', [userToSearch, userToSearch], (err, data, fields) => {
+    db.query('SELECT * FROM `Users` WHERE (LOWER(`firstName`) LIKE LOWER(?)) OR (LOWER(`lastName`) LIKE LOWER(?)) LIMIT 5', [userToSearch, userToSearch], (err, data, fields) => {
+
         // if at least 1 user exists
         if (data[0]) {
-
-            // TODO: map not just data[0] but all data to array and set as response
+            let users = [];
+            for (const key in data) {
+                users.push(`${data[key].firstName} ${data[key].lastName}`);
+            }
 
             res.json({
                 success: true,
-                firstName: data[0].firstName,
-                lastName: data[0].lastName
+                users: [users]
             })
         } else {
             res.json({

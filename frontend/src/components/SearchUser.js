@@ -11,10 +11,8 @@ function SearchUser() {
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
   const [userToSearch, setUserToSearch] = useState("");
 
-  // single found user for now, look @searchUserController line 11
-  const [foundUser, setFoundUser] = useState("");
-
-  // TODO: add useContext to call Axios query when userToSearch
+  const [foundUser, setFoundUser] = useState([]);
+  let a = [];
 
   useEffect(() => {
     let unmounted = false;
@@ -25,17 +23,17 @@ function SearchUser() {
     .then(res => {
         if (!unmounted) {
           if (res.data.success) {
-            setFoundUser(res.data.firstName + ' ' + res.data.lastName);
+            setFoundUser(res.data.users[0]);
           }
         }
-    })
-
+      })
+      
     return () => { unmounted = true };
   }, [userToSearch]);
 
   const handleChange = (e) => {
     if (e.target.value === "") {
-      setFoundUser("No user found with that name");
+      setFoundUser([]);
     }
     setUserToSearch(e.target.value);
   }
@@ -60,7 +58,16 @@ function SearchUser() {
         />
       </div>
       <div className="registration">
-        {foundUser}
+        {(!(foundUser.length === 0)) ? foundUser.map((val, key) => {
+          return(
+
+            // TODO: Change divs to Links
+
+            <li key={key}>
+              {val}
+            </li>
+          )
+        }) : <div>No user found with that name</div> }
       </div>
     </div>
   )
