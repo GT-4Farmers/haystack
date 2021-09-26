@@ -3,6 +3,7 @@ import Axios from 'axios';
 import AuthContext from '../states/AuthContext';
 import { useHistory } from 'react-router';
 import '../App.css';
+import AuthService from '../auth/AuthService';
 
 function Home() {
   let history = useHistory();
@@ -21,20 +22,18 @@ function Home() {
     return () => { unmounted = true };
   }, []);
 
-  if (isLoggedIn === false) {
+  if (!isLoggedIn) {
     return (
-      <div className="registration">
-        <button onClick={() => history.push("/")}>Not logged in?</button>
-      </div>
-    )
-  } else {
-    return (
-      <div className="App">
-        <h1>Home</h1>
-        Hi {email}
-      </div>
+      <AuthService />
     )
   }
+
+  return (
+    <div className="App">
+      <h1>Home</h1>
+      Hi {email}
+    </div>
+  )
 }
 
 export default Home

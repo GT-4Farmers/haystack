@@ -1,8 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Axios from 'axios';
 import { useHistory } from 'react-router';
+import AuthContext from '../states/AuthContext';
+import AuthService from '../auth/AuthService';
 
 function About() {
+    const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+
     const history = useHistory();
     const [email, setEmail] = useState("");
     const [bio, setBio] = useState("");
@@ -99,6 +103,12 @@ function About() {
 
     let value = !showElement ? "Edit About" : "Done";
 
+    if (!isLoggedIn) {
+        return (
+            <AuthService />
+        )
+    }
+
     return (
     <div className="registration">
         <h1>About</h1>
@@ -149,4 +159,4 @@ function About() {
     </div>);
 }
 
-export default About;
+export default About
