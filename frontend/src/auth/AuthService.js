@@ -16,20 +16,20 @@ function AuthService() {
                 setIsLoggedIn(res.data.success);
             }
         })
-
         return () => { unmounted = true };
     });
 
     let history = useHistory();
 
     if (!isLoggedIn) {
-        history.push("/");
         return (
-            <div>not logged</div>
+            <div className="registration">
+                <button onClick={() => history.push("/")}>Not logged in?</button>
+            </div>
         )
     } else {
         return (
-            <div>logged</div>
+            <></>
         )
     }
 }

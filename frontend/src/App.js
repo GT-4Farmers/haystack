@@ -1,14 +1,16 @@
-import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import Profile from './components/Profile';
-import About from './components/About';
-import Home from './components/Home';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Axios from 'axios';
+
+import AuthContext from './states/AuthContext';
+import Header from './components/Header';
 import Login from './components/Login';
 import Register from './components/Register';
-import Header from './components/Header';
-import Axios from 'axios';
-import AuthContext from './states/AuthContext';
+import Home from './components/Home';
+import Profile from './components/Profile';
+import About from './components/About';
+import SearchUser from './components/SearchUser';
+import './App.css';
 
 function App() {
   
@@ -39,6 +41,7 @@ function App() {
           <Route path="/home" component={Home} />
           <Route path="/profile/about" component={About} />
           <Route path="/profile" component={Profile} />
+          <Route path="/searchUser" component={SearchUser} />
           <Route path="/register" component={Register} />
         </Switch>
       </AuthContext.Provider>

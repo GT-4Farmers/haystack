@@ -5,11 +5,9 @@ import { useHistory } from 'react-router';
 import uuid from 'react-uuid';
 
 function Register() {
-
-    let asdf = uuid();
+    let uniqueID = uuid();
 
     const history = useHistory();
-    
     const handleHistory = () => {
         history.push("/");
     }
@@ -27,7 +25,7 @@ function Register() {
     const register = () => {
         
         Axios.post('http://localhost:3001/register', {
-            uuid: asdf,
+            uuid: uniqueID,
             firstName: state.firstNameReg,
             lastName: state.lastNameReg,
             email: state.emailReg,
@@ -40,7 +38,6 @@ function Register() {
                 redirectToHome();
             }
         })
-        // clearForm();
     };
 
     const redirectToHome = () => {
@@ -120,10 +117,8 @@ function Register() {
                     <button onClick={handleHistory}>Login here</button>
                 </div>
             </div>
-            
         </div>
     )
-
 }
 
 export default Register

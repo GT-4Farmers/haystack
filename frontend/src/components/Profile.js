@@ -3,6 +3,7 @@ import Axios from 'axios';
 import { useHistory } from 'react-router';
 import '../App.css';
 import AuthContext from '../states/AuthContext';
+import AuthService from '../auth/AuthService';
 
 function Profile() {
     const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
@@ -31,30 +32,28 @@ function Profile() {
         history.push("/profile/about");
     }
 
-    if (isLoggedIn) {
+    if (!isLoggedIn) {
         return (
-        <div className="App">
-            <h1>Profile</h1>
-            <h2>{firstName} {lastName}</h2>
-            
-            <div>
-                <button onClick={handleAbout}>About</button>
-            </div>
-            {/* <div>
-                <button onClick={handlePhotos}>Photos</button>
-            </div>
-            <div>
-                <button onClick={handleFriends}>Friends</button>
-            </div> */}
-        </div>
-        );
-    } else {
-        return (
-            <div className="registration">
-                <button onClick={() => history.push("/")}>Not logged in?</button>
-            </div>
+            <AuthService />
         )
     }
+
+    return (
+    <div className="App">
+        <h1>Profile</h1>
+        <h2>{firstName} {lastName}</h2>
+        
+        <div>
+            <button onClick={handleAbout}>About</button>
+        </div>
+        {/* <div>
+            <button onClick={handlePhotos}>Photos</button>
+        </div>
+        <div>
+            <button onClick={handleFriends}>Friends</button>
+        </div> */}
+    </div>
+    )
 }
 
 export default Profile;
