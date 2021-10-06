@@ -116,7 +116,7 @@ function Register() {
 
                 <div>
                     <span>Already have an account? </span>
-                    <a onClick={handleHistory}>Login here</a>
+                    <a id="logIn" onClick={handleHistory}>Login here</a>
                 </div>
             </div>
         </div>

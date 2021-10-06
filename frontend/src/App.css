@@ -134,7 +134,54 @@ button:hover {
   transition: all 0.3s ease-out;
 }
 
-a {
+#logIn {
   color: #166C3B;
   margin-bottom: 2em;
+}
+
+/* NAV BAR */
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 2em 0 2em 1em;
+  width: 20%;
+  background-color: #27AE60;
+  border-radius: 0 1em 1em 0;
+}
+
+.navButton {
+  display: block;
+  padding: 1em 2em;
+  margin: 1em 0;
+  background-color: #27AE60;
+  border-radius:  2em 0 0 2em;
+}
+
+.navButton a {
+  color: black;
+  font-size: 1.5em;
+  text-decoration: none;
+  padding-left: .5em;
+}
+
+#navLogOut {
+  font-size: 1.5em;
+  text-decoration: none;
+  color: black;
+  background-color: inherit;
+  padding: 0 0 0 .5em;
+  transition: 0s;
+  font-size: 1.5em;
+  width: 100%;
+  text-align: left;
+}
+ 
+.navButton:hover {
+  background-color: #F2F2F2;
+  color: #000000;
+  transition: all 0.3s ease-out;
+}
+
+#headerLogo {
+  margin-left: 2em;
 }
